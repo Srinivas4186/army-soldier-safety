@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Army Safety | Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body class="inner-page">
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <div class="flag">
+                🇮🇳
+            </div>
+
+            <div>
+
+                <h2>ARMY SAFETY</h2>
+
+                <p>
+                    Soldier Safety & Emergency Monitoring System
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/dashboard"
+               class="active">
+                Dashboard
+            </a>
+
+            <a href="/login">
+                Logout
+            </a>
+
+        </div>
+
+
+        <div class="jai">
+
+            <span></span>
+
+            Jai Hind
+
+            <span></span>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- DASHBOARD -->
+
+    <main class="dashboard-page">
+
+        <div class="dashboard-heading">
+
+            <p>
+                INDIAN ARMY • SAFETY MONITORING
+            </p>
+
+            <h1>
+                Soldier Safety Dashboard
+            </h1>
+
+            <span>
+                Real-time educational monitoring interface
+            </span>
+
+        </div>
+
+
+
+        <div class="dashboard-cards">
+
+
+            <div class="dash-card safe-card">
+
+                <div class="dash-icon">
+                    🛡️
+                </div>
+
+                <h3>
+                    Soldier Status
+                </h3>
+
+                <strong>
+                    SAFE
+                </strong>
+
+                <p>
+                    Current safety condition
+                </p>
+
+            </div>
+
+
+
+            <div class="dash-card">
+
+                <div class="dash-icon">
+                    ❤️
+                </div>
+
+                <h3>
+                    Heart Rate
+                </h3>
+
+                <strong>
+                    72 BPM
+                </strong>
+
+                <p>
+                    Normal monitoring value
+                </p>
+
+            </div>
+
+
+
+            <div class="dash-card">
+
+                <div class="dash-icon">
+                    🌡️
+                </div>
+
+                <h3>
+                    Body Temperature
+                </h3>
+
+                <strong>
+                    36.8 °C
+                </strong>
+
+                <p>
+                    Normal monitoring value
+                </p>
+
+            </div>
+
+
+
+            <div class="dash-card alert-card">
+
+                <div class="dash-icon">
+                    🚨
+                </div>
+
+                <h3>
+                    Emergency Alert
+                </h3>
+
+                <button
+                    onclick="sendAlert()"
+                    class="alert-btn">
+
+                    SEND ALERT
+
+                </button>
+
+                <p>
+                    Notify command center
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="alertBox"
+            class="alert-message">
+        </div>
+
+    </main>
+
+
+
+    <footer>
+
+        <div>
+            🛡️ Soldier Safety & Emergency Monitoring System
+        </div>
+
+        <div>
+            — For a Safer Tomorrow —
+        </div>
+
+    </footer>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}">
+    </script>
+
+</body>
+
+</html>
