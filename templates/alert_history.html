@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Army Safety | Alert History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .history-container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .history-table {
+            width: 100%;
+            margin-top: 35px;
+            border-collapse: collapse;
+            background: rgba(5, 30, 18, 0.85);
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .history-table th {
+            color: #63ff78;
+        }
+
+        .history-table td {
+            color: #d0d8d3;
+        }
+
+        .status-active {
+            color: #ff6670;
+            font-weight: bold;
+        }
+
+        .empty-history {
+            margin-top: 35px;
+            padding: 30px;
+            text-align: center;
+            background: rgba(5, 30, 18, 0.8);
+            border-radius: 15px;
+            color: #aab8b0;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 22px;
+            border-radius: 25px;
+            background: #32c957;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+
+<body class="inner-page">
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <div class="flag">
+                🇮🇳
+            </div>
+
+            <div>
+
+                <h2>ARMY SAFETY</h2>
+
+                <p>
+                    Soldier Safety & Emergency Monitoring System
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/logout">
+                Logout
+            </a>
+
+        </div>
+
+
+        <div class="jai">
+            Jai Hind
+        </div>
+
+    </nav>
+
+
+
+    <!-- ALERT HISTORY -->
+
+    <main class="dashboard-page">
+
+        <div class="history-container">
+
+            <div class="dashboard-heading">
+
+                <p>
+                    INDIAN ARMY • SAFETY MONITORING
+                </p>
+
+                <h1>
+                    Emergency Alert History
+                </h1>
+
+                <span>
+                    Soldier ID: {{ soldier_id }}
+                </span>
+
+            </div>
+
+
+            {% if alerts %}
+
+            <table class="history-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Alert ID</th>
+
+                        <th>Alert Type</th>
+
+                        <th>Status</th>
+
+                        <th>Date & Time</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for alert in alerts %}
+
+                    <tr>
+
+                        <td>
+                            #{{ alert["id"] }}
+                        </td>
+
+                        <td>
+                            🚨 {{ alert["alert_type"] }}
+                        </td>
+
+                        <td class="status-active">
+                            {{ alert["status"] }}
+                        </td>
+
+                        <td>
+                            {{ alert["created_at"] }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            {% else %}
+
+            <div class="empty-history">
+
+                <h3>
+                    📜 No alerts recorded
+                </h3>
+
+                <p>
+                    Emergency alerts will appear here.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+
+            <a href="/dashboard"
+               class="back-btn">
+
+                ← Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </main>
+
+
+
+    <footer>
+
+        <div>
+            🛡️ Soldier Safety & Emergency Monitoring System
+        </div>
+
+        <div>
+            — For a Safer Tomorrow —
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

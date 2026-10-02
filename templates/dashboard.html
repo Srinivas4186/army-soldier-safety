@@ -13,208 +13,494 @@
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 
+    <style>
+
+        .info-card {
+            text-align: left;
+        }
+
+        .info-card .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin: 10px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .info-card .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-card .label {
+            color: #aab8b0;
+        }
+
+        .info-card .value {
+            color: #63ff78;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .status-select {
+            width: 100%;
+            padding: 11px;
+            margin-top: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-weight: bold;
+        }
+
+        .status-select option {
+            color: black;
+        }
+
+        .update-status-btn {
+            width: 100%;
+            margin-top: 12px;
+            padding: 11px;
+            border: none;
+            border-radius: 22px;
+            background: #32c957;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .update-status-btn:hover {
+            opacity: 0.9;
+        }
+
+        .alert-message {
+            display: none;
+            margin-top: 30px;
+            padding: 18px 22px;
+            border-radius: 12px;
+            background: rgba(50, 201, 87, 0.15);
+            border: 1px solid #32c957;
+            color: #63ff78;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .alert-message.show {
+            display: block;
+        }
+
+        .alert-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .checkin-status {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #aab8b0;
+        }
+
+    </style>
+
 </head>
+
 
 <body class="inner-page">
 
 
-    <!-- NAVBAR -->
+<nav class="navbar">
 
-    <nav class="navbar">
+    <div class="brand">
 
-        <div class="brand">
-
-            <div class="flag">
-                🇮🇳
-            </div>
-
-            <div>
-
-                <h2>ARMY SAFETY</h2>
-
-                <p>
-                    Soldier Safety & Emergency Monitoring System
-                </p>
-
-            </div>
-
+        <div class="flag">
+            🇮🇳
         </div>
 
+        <div>
 
-        <div class="nav-links">
-
-            <a href="/">
-                Home
-            </a>
-
-            <a href="/dashboard"
-               class="active">
-                Dashboard
-            </a>
-
-            <a href="/login">
-                Logout
-            </a>
-
-        </div>
-
-
-        <div class="jai">
-
-            <span></span>
-
-            Jai Hind
-
-            <span></span>
-
-        </div>
-
-    </nav>
-
-
-
-    <!-- DASHBOARD -->
-
-    <main class="dashboard-page">
-
-        <div class="dashboard-heading">
+            <h2>
+                ARMY SAFETY
+            </h2>
 
             <p>
-                INDIAN ARMY • SAFETY MONITORING
+                Soldier Safety & Emergency Monitoring System
             </p>
 
-            <h1>
-                Soldier Safety Dashboard
-            </h1>
+        </div>
 
-            <span>
-                Real-time educational monitoring interface
-            </span>
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/dashboard" class="active">
+            Dashboard
+        </a>
+
+        <a href="/logout">
+            Logout
+        </a>
+
+    </div>
+
+
+    <div class="jai">
+        Jai Hind
+    </div>
+
+</nav>
+
+
+
+<main class="dashboard-page">
+
+
+    <div class="dashboard-heading">
+
+        <p>
+            INDIAN ARMY • SAFETY MONITORING
+        </p>
+
+        <h1>
+            Soldier Safety Dashboard
+        </h1>
+
+        <span>
+            Soldier ID: {{ soldier_id }}
+        </span>
+
+    </div>
+
+
+
+    <div class="dashboard-cards">
+
+
+        <!-- SOLDIER STATUS -->
+
+        <div class="dash-card safe-card">
+
+            <div class="dash-icon">
+                🛡️
+            </div>
+
+            <h3>
+                Soldier Status
+            </h3>
+
+            <strong>
+                {{ safety_status }}
+            </strong>
+
+            <p>
+                Current safety condition
+            </p>
+
+            <div class="checkin-status">
+
+                Last check-in:
+                {{ last_checkin }}
+
+            </div>
 
         </div>
 
 
 
-        <div class="dashboard-cards">
+        <!-- DUTY INFORMATION -->
+
+        <div class="dash-card info-card">
+
+            <div class="dash-icon">
+                🪖
+            </div>
+
+            <h3>
+                Duty Information
+            </h3>
 
 
-            <div class="dash-card safe-card">
+            <div class="info-row">
 
-                <div class="dash-icon">
-                    🛡️
-                </div>
+                <span class="label">
+                    Duty Location
+                </span>
 
-                <h3>
-                    Soldier Status
-                </h3>
-
-                <strong>
-                    SAFE
-                </strong>
-
-                <p>
-                    Current safety condition
-                </p>
+                <span class="value">
+                    {{ duty_location }}
+                </span>
 
             </div>
 
 
+            <div class="info-row">
 
-            <div class="dash-card">
+                <span class="label">
+                    Current Status
+                </span>
 
-                <div class="dash-icon">
-                    ❤️
-                </div>
-
-                <h3>
-                    Heart Rate
-                </h3>
-
-                <strong>
-                    72 BPM
-                </strong>
-
-                <p>
-                    Normal monitoring value
-                </p>
+                <span class="value">
+                    {{ duty_status }}
+                </span>
 
             </div>
 
 
+            <div class="info-row">
 
-            <div class="dash-card">
+                <span class="label">
+                    Leaves Taken
+                </span>
 
-                <div class="dash-icon">
-                    🌡️
-                </div>
-
-                <h3>
-                    Body Temperature
-                </h3>
-
-                <strong>
-                    36.8 °C
-                </strong>
-
-                <p>
-                    Normal monitoring value
-                </p>
+                <span class="value">
+                    {{ leave_count }}
+                </span>
 
             </div>
 
 
+            <!-- STATUS CHANGE -->
 
-            <div class="dash-card alert-card">
+            <form
+                action="/update_duty_status"
+                method="POST">
 
-                <div class="dash-icon">
-                    🚨
-                </div>
+                <select
+                    name="duty_status"
+                    class="status-select">
 
-                <h3>
-                    Emergency Alert
-                </h3>
+                    <option
+                        value="ON DUTY"
+                        {% if duty_status == "ON DUTY" %}
+                        selected
+                        {% endif %}>
+
+                        ON DUTY
+
+                    </option>
+
+
+                    <option
+                        value="OFF DUTY"
+                        {% if duty_status == "OFF DUTY" %}
+                        selected
+                        {% endif %}>
+
+                        OFF DUTY
+
+                    </option>
+
+
+                    <option
+                        value="ON LEAVE"
+                        {% if duty_status == "ON LEAVE" %}
+                        selected
+                        {% endif %}>
+
+                        ON LEAVE
+
+                    </option>
+
+                </select>
+
 
                 <button
-                    onclick="sendAlert()"
-                    class="alert-btn">
+                    type="submit"
+                    class="update-status-btn">
 
-                    SEND ALERT
+                    UPDATE STATUS
 
                 </button>
 
-                <p>
-                    Notify command center
-                </p>
+            </form>
 
+        </div>
+
+
+
+        <!-- HEART RATE -->
+
+        <div class="dash-card">
+
+            <div class="dash-icon">
+                ❤️
             </div>
 
+            <h3>
+                Heart Rate
+            </h3>
+
+            <strong>
+                72 BPM
+            </strong>
+
+            <p>
+                Normal monitoring value
+            </p>
+
         </div>
 
 
-        <div
-            id="alertBox"
-            class="alert-message">
+
+        <!-- TEMPERATURE -->
+
+        <div class="dash-card">
+
+            <div class="dash-icon">
+                🌡️
+            </div>
+
+            <h3>
+                Body Temperature
+            </h3>
+
+            <strong>
+                36.8 °C
+            </strong>
+
+            <p>
+                Normal monitoring value
+            </p>
+
         </div>
 
-    </main>
 
 
+        <!-- EMERGENCY ALERT -->
 
-    <footer>
+        <div class="dash-card alert-card">
 
-        <div>
-            🛡️ Soldier Safety & Emergency Monitoring System
+            <div class="dash-icon">
+                🚨
+            </div>
+
+            <h3>
+                Emergency Alert
+            </h3>
+
+            <button
+                type="button"
+                onclick="sendAlert()"
+                id="alertButton"
+                class="alert-btn">
+
+                SEND ALERT
+
+            </button>
+
+            <p>
+                Record emergency alert
+            </p>
+
         </div>
 
-        <div>
-            — For a Safer Tomorrow —
+
+
+        <!-- ALERT HISTORY -->
+
+        <div class="dash-card">
+
+            <div class="dash-icon">
+                📜
+            </div>
+
+            <h3>
+                Alert History
+            </h3>
+
+            <p>
+                View previous emergency alerts.
+            </p>
+
+            <a
+                href="/alert_history"
+                class="alert-btn"
+                style="
+                    display:inline-block;
+                    text-decoration:none;
+                    margin-top:15px;
+                ">
+
+                VIEW HISTORY
+
+            </a>
+
         </div>
 
-    </footer>
 
 
-    <script src="{{ url_for('static', filename='js/script.js') }}">
-    </script>
+        <!-- SAFETY CHECK-IN -->
+
+        <div class="dash-card safe-card">
+
+            <div class="dash-icon">
+                🛡️
+            </div>
+
+            <h3>
+                Safety Check-in
+            </h3>
+
+            <p>
+                Confirm that you are safe.
+            </p>
+
+            <button
+                type="button"
+                class="alert-btn"
+                id="safeButton"
+                onclick="checkIn()">
+
+                I'M SAFE
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div
+        id="alertBox"
+        class="alert-message">
+    </div>
+
+
+    <div
+        id="checkinBox"
+        class="alert-message">
+    </div>
+
+
+</main>
+
+
+
+<footer>
+
+    <div>
+        🛡️ Soldier Safety & Emergency Monitoring System
+    </div>
+
+    <div>
+        — For a Safer Tomorrow —
+    </div>
+
+</footer>
+
+
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}">
+</script>
+
 
 </body>
 

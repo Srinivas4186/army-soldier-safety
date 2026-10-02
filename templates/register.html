@@ -2,165 +2,364 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Army Safety | Register</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 
+    <style>
+
+        .form-message {
+            margin-bottom: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .error-message {
+            background: rgba(255, 70, 70, 0.15);
+            color: #ff6670;
+            border: 1px solid #ff6670;
+        }
+
+        .success-message {
+            background: rgba(50, 201, 87, 0.15);
+            color: #63ff78;
+            border: 1px solid #32c957;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #d0d8d3;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(0,0,0,0.25);
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .form-group select option {
+            color: black;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 25px;
+            background: #32c957;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .register-btn:hover {
+            opacity: 0.9;
+        }
+
+    </style>
+
 </head>
+
 
 <body class="inner-page">
 
 
-    <!-- NAVBAR -->
+<nav class="navbar">
 
-    <nav class="navbar">
+    <div class="brand">
 
-        <div class="brand">
-
-            <div class="flag">
-                🇮🇳
-            </div>
-
-            <div>
-
-                <h2>ARMY SAFETY</h2>
-
-                <p>
-                    Soldier Safety & Emergency Monitoring System
-                </p>
-
-            </div>
-
+        <div class="flag">
+            🇮🇳
         </div>
 
+        <div>
 
-        <div class="nav-links">
+            <h2>ARMY SAFETY</h2>
 
-            <a href="/">
-                Home
-            </a>
-
-            <a href="/login">
-                Login
-            </a>
-
-            <a href="/register" class="active">
-                Register
-            </a>
-
-        </div>
-
-
-        <div class="jai">
-
-            <span></span>
-
-            Jai Hind
-
-            <span></span>
-
-        </div>
-
-    </nav>
-
-
-
-    <!-- REGISTER -->
-
-    <main class="form-page">
-
-        <div class="form-card">
-
-            <div class="form-icon">
-                👤
-            </div>
-
-
-            <p class="form-tag">
-                INDIAN ARMY • SOLDIER REGISTRATION
+            <p>
+                Soldier Safety & Emergency Monitoring System
             </p>
 
+        </div>
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/login">
+            Login
+        </a>
+
+        <a href="/register" class="active">
+            Register
+        </a>
+
+    </div>
+
+
+    <div class="jai">
+        Jai Hind
+    </div>
+
+</nav>
+
+
+<main class="form-page">
+
+    <div class="form-container">
+
+
+        <div class="form-heading">
+
+            <p>
+                INDIAN ARMY • SOLDIER REGISTRATION
+            </p>
 
             <h1>
                 Register Soldier
             </h1>
 
+            <span>
+                Create a soldier safety monitoring profile
+            </span>
 
-            <p class="form-description">
-                Create a secure profile for the Soldier Safety System.
-            </p>
+        </div>
 
 
-            <form method="POST">
+        {% if error %}
 
-                <label>
+        <div class="form-message error-message">
+            ⚠️ {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        {% if success %}
+
+        <div class="form-message success-message">
+            ✅ {{ success }}
+        </div>
+
+        {% endif %}
+
+
+        <form method="POST"
+              onsubmit="return validateRegister()">
+
+
+            <!-- SOLDIER NAME -->
+
+            <div class="form-group">
+
+                <label for="name">
                     Soldier Name
                 </label>
 
                 <input
                     type="text"
+                    id="name"
                     name="name"
-                    placeholder="Enter Soldier Name"
+                    placeholder="Enter soldier name"
                     required
                 >
 
+            </div>
 
-                <label>
+
+            <!-- SOLDIER ID -->
+
+            <div class="form-group">
+
+                <label for="soldier_id">
                     Soldier ID
                 </label>
 
                 <input
                     type="text"
+                    id="soldier_id"
                     name="soldier_id"
-                    placeholder="Enter Soldier ID"
+                    placeholder="Enter soldier ID"
                     required
                 >
 
+            </div>
 
-                <button
-                    type="submit"
-                    class="form-btn"
+
+            <!-- DUTY LOCATION -->
+
+            <div class="form-group">
+
+                <label for="duty_location">
+                    Duty Location
+                </label>
+
+                <input
+                    type="text"
+                    id="duty_location"
+                    name="duty_location"
+                    placeholder="Enter duty location"
+                    required
                 >
-                    Create Soldier Profile →
-                </button>
 
-            </form>
+            </div>
 
 
-            <p class="form-bottom">
+            <!-- DUTY STATUS -->
 
-                Already registered?
+            <div class="form-group">
 
-                <a href="/login">
-                    Login here
-                </a>
+                <label for="duty_status">
+                    Duty Status
+                </label>
 
-            </p>
+                <select
+                    id="duty_status"
+                    name="duty_status"
+                    required>
 
-        </div>
+                    <option value="ON DUTY">
+                        ON DUTY
+                    </option>
 
-    </main>
+                    <option value="ON LEAVE">
+                        ON LEAVE
+                    </option>
+
+                </select>
+
+            </div>
 
 
+            <!-- LEAVE COUNT -->
 
-    <footer>
+            <div class="form-group">
 
-        <div>
-            🛡️ Soldier Safety & Emergency Monitoring System
-        </div>
+                <label for="leave_count">
+                    Number of Leaves Taken
+                </label>
 
-        <div>
-            — For a Safer Tomorrow —
-        </div>
+                <input
+                    type="number"
+                    id="leave_count"
+                    name="leave_count"
+                    placeholder="Enter leave count"
+                    min="0"
+                    value="0"
+                    required
+                >
 
-    </footer>
+            </div>
+
+
+            <!-- REGISTER BUTTON -->
+
+            <button
+                type="submit"
+                class="register-btn">
+
+                REGISTER SOLDIER
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div>
+        🛡️ Soldier Safety & Emergency Monitoring System
+    </div>
+
+    <div>
+        — For a Safer Tomorrow —
+    </div>
+
+</footer>
+
+
+<script>
+
+function validateRegister() {
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const soldierId =
+        document.getElementById("soldier_id").value.trim();
+
+    const dutyLocation =
+        document.getElementById("duty_location").value.trim();
+
+    const leaveCount =
+        document.getElementById("leave_count").value;
+
+
+    if (name.length < 2) {
+
+        alert("Please enter a valid Soldier Name.");
+
+        return false;
+    }
+
+
+    if (soldierId.length < 3) {
+
+        alert("Soldier ID must contain at least 3 characters.");
+
+        return false;
+    }
+
+
+    if (dutyLocation.length < 2) {
+
+        alert("Please enter Duty Location.");
+
+        return false;
+    }
+
+
+    if (leaveCount < 0 || leaveCount === "") {
+
+        alert("Leave Count cannot be negative.");
+
+        return false;
+    }
+
+
+    return true;
+}
+
+</script>
+
 
 </body>
 

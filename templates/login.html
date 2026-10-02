@@ -13,22 +13,32 @@
 
 <body class="inner-page">
 
-    <!-- NAVBAR -->
+    <!-- ================= NAVBAR ================= -->
 
     <nav class="navbar">
 
         <div class="brand">
-            <div class="flag">🇮🇳</div>
+
+            <div class="flag">
+                🇮🇳
+            </div>
 
             <div>
                 <h2>ARMY SAFETY</h2>
-                <p>Soldier Safety & Emergency Monitoring System</p>
+
+                <p>
+                    Soldier Safety & Emergency Monitoring System
+                </p>
             </div>
+
         </div>
+
 
         <div class="nav-links">
 
-            <a href="/">Home</a>
+            <a href="/">
+                Home
+            </a>
 
             <a href="/login" class="active">
                 Login
@@ -40,16 +50,21 @@
 
         </div>
 
+
         <div class="jai">
+
             <span></span>
+
             Jai Hind
+
             <span></span>
+
         </div>
 
     </nav>
 
 
-    <!-- LOGIN -->
+    <!-- ================= LOGIN PAGE ================= -->
 
     <main class="form-page">
 
@@ -59,49 +74,106 @@
                 🛡️
             </div>
 
+
             <p class="form-tag">
                 INDIAN ARMY • SECURE ACCESS
             </p>
 
-            <h1>Soldier Login</h1>
+
+            <h1>
+                Soldier Login
+            </h1>
+
 
             <p class="form-description">
                 Access the Soldier Safety Monitoring Dashboard.
             </p>
 
 
-            <form method="POST">
+            <!-- ERROR MESSAGE -->
 
-                <label>Soldier ID</label>
+            {% if error %}
+
+            <div class="error-message">
+                🚨 {{ error }}
+            </div>
+
+            {% endif %}
+
+
+            <!-- SUCCESS MESSAGE -->
+
+            {% if success %}
+
+            <div class="success-message">
+                ✅ {{ success }}
+            </div>
+
+            {% endif %}
+
+
+            <!-- LOGIN FORM -->
+
+            <form method="POST"
+                  onsubmit="return validateLogin()">
+
+
+                <!-- SOLDIER ID -->
+
+                <label for="soldier_id">
+                    Soldier ID
+                </label>
+
 
                 <input
                     type="text"
+                    id="soldier_id"
                     name="soldier_id"
                     placeholder="Enter Soldier ID"
-                    required
+                    autocomplete="username"
                 >
 
 
-                <label>Password</label>
+                <!-- PASSWORD -->
+
+                <label for="password">
+                    Password
+                </label>
+
 
                 <input
                     type="password"
+                    id="password"
                     name="password"
                     placeholder="Enter Password"
-                    required
+                    autocomplete="current-password"
                 >
 
 
-                <button type="submit" class="form-btn">
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="form-btn">
+
                     Login to Dashboard →
+
                 </button>
+
 
             </form>
 
 
+            <!-- REGISTER LINK -->
+
             <p class="form-bottom">
+
                 New soldier?
-                <a href="/register">Create an account</a>
+
+                <a href="/register">
+                    Create an account
+                </a>
+
             </p>
 
         </div>
@@ -109,10 +181,106 @@
     </main>
 
 
+    <!-- ================= FOOTER ================= -->
+
     <footer>
-        <div>🛡️ Soldier Safety & Emergency Monitoring System</div>
-        <div>— For a Safer Tomorrow —</div>
+
+        <div>
+            🛡️ Soldier Safety & Emergency Monitoring System
+        </div>
+
+        <div>
+            — For a Safer Tomorrow —
+        </div>
+
     </footer>
+
+
+    <!-- ================= JAVASCRIPT VALIDATION ================= -->
+
+    <script>
+
+        function validateLogin() {
+
+            let soldierId =
+                document.getElementById("soldier_id").value.trim();
+
+            let password =
+                document.getElementById("password").value.trim();
+
+
+            // Soldier ID empty
+
+            if (soldierId === "") {
+
+                alert("⚠️ Please enter your Soldier ID.");
+
+                return false;
+            }
+
+
+            // Password empty
+
+            if (password === "") {
+
+                alert("⚠️ Please enter your password.");
+
+                return false;
+            }
+
+
+            // Allow form submission
+
+            return true;
+
+        }
+
+    </script>
+
+
+    <!-- ================= LOGIN MESSAGE STYLE ================= -->
+
+    <style>
+
+        .error-message {
+
+            margin-bottom: 20px;
+
+            padding: 12px 15px;
+
+            border-radius: 8px;
+
+            background: rgba(255, 50, 60, 0.15);
+
+            border: 1px solid #ff5965;
+
+            color: #ff7b83;
+
+            text-align: center;
+
+        }
+
+
+        .success-message {
+
+            margin-bottom: 20px;
+
+            padding: 12px 15px;
+
+            border-radius: 8px;
+
+            background: rgba(50, 200, 87, 0.15);
+
+            border: 1px solid #32c957;
+
+            color: #63ff78;
+
+            text-align: center;
+
+        }
+
+    </style>
+
 
 </body>
 
